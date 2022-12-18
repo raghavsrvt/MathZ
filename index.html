@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathZ - Math for GenZ | RaghavSrvt</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <script src="https://kit.fontawesome.com/45a669512e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <p class="attribute">Made by <a href="https://raghavsrvt.ml/" target="_blank">Raghav Srvt</a></p>
+        </div>
+        <div class="header-middle">
+            <a href="" class="logo">MathZ</a>
+        </div>
+        <div class="header-main">
+            <a href="" class="logo">MathZ</a>
+        </div>
+        <div class="header-right">
+            <p class="high-score-p lives-p">Lives: <span id="lives">10</span></p>
+            <p class="high-score-p">High Score: <span id="high-score">0</span></p>
+            <button id="mute-control" class="click-audio"></button>
+        </div>
+    </header>
+    <h3 id="subTitle">What do you want to practice?</h3>
+    <div id ="operatorPrompt">
+        <button id="addition" class = "operatorSel" onclick = "operatorPrompt() , addOperation()">Addition</button>
+        <button id="subtraction" class = "operatorSel" onclick = "operatorPrompt() , subOperation()">Subtraction</button>
+        <button id="multiplication" class = "operatorSel" onclick = "operatorPrompt() , mulOperation()">Multiplication</button>
+        <!-- <button id="division" class = "operatorSel" onclick = "operatorPrompt() , divOperation()">Division</button> -->
+    </div>
+
+    <div id="result"></div>
+    <div id="questionPrompt">
+        <div id="questionHeader">
+            <a href="" onclick="window.location.reload();" class="click-audio"><i class="fa-solid fa-arrow-left"></i></a>
+            <p class="score-p">Score: <span id="score">0</span></p>
+        </div>
+        <div class="resp-flex">
+            <p class="problem">What is <span id="num1"></span> <span id="operator"></span> <span id="num2"></span>?</p>
+        </div>
+        <div class="resp-flex">
+            <input type="number" placeholder="Enter your answer..." id="userInp">
+        </div>
+        <button onclick="chkAnswerFunc()" id="chkAnswer" class="click-audio">Check Answer</button>
+        <button id="submit" class="click-audio">Submit</button>
+    </div>
+    
+    <div id="game-over">
+        <p class="game-over-p">Game Over 💀</p>
+        <p class="final-score-p">Your final score was <span id="final-score"></span></p>
+        <a href="" onclick="window.location.reload();" class="play-again click-audio">Play Again</a>
+    </div>
+
+    <!-- Audios -->
+    <audio src="./sounds/hitHurt.wav" id="hurt"></audio>
+    <audio src="./sounds/pickupCoin.wav" id="coin"></audio>
+    <audio src="./sounds/blipSelect.wav" id="warn"></audio>
+    <audio src="./sounds/click.wav" id="click"></audio>
+    <audio src="./sounds/select.wav" id="select"></audio>
+    <audio src="./sounds/gameOver.wav" id="game-over-audio"></audio>
+    <script src="./app.js"></script>
+</body>
+</html>
