@@ -1,9 +1,8 @@
-// Selecting elements from the HTML document
 let addOper = document.getElementById('addition');
 let subOper = document.getElementById('subtraction');
 let mulOper = document.getElementById('multiplication');
 let divOper = document.getElementById('division');
-let click = Array from(document.getElementsByClassName('click-audio'));
+let click = Array.from(document.getElementsByClassName('click-audio'));
 let playElements = Array.from(document.querySelectorAll('audio , video'));
 
 let questionPrompt = document.getElementById('questionPrompt');
@@ -18,7 +17,6 @@ let num1 = document.getElementById('num1');
 let num2 = document.getElementById('num2');
 let operator = document.getElementById('operator');
 
-// Declare and initialize variables
 var num1Val;
 var num2Val;
 var operatorVal;
@@ -46,43 +44,44 @@ let audioClick = document.getElementById('click');
 let audioSelect = document.getElementById('select');
 let gameOverAudio = document.getElementById('game-over-audio');
 
-// Perform initial setup when the page loads
+// localStorage.getItem('muted' , element.muted);
+
 window.onload = () => {
-    // Load high score from local storage if available
-    if ((localStorage.getItem('highScore')) != null) {
+    if((localStorage.getItem('highScore')) != null){
         highScoreVal = Number.parseInt(localStorage.getItem('highScore'));
         highScore.innerText = highScoreVal;
     }
 
-    // Check and set the mute status for audio elements
     if (localStorage.getItem('muted') != null) {
         playElements.forEach(element => {
             if (localStorage.getItem('muted') == 'true') {
                 element.muted = true;
                 muteControl.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`;
-            } else {
+            }
+            else {
                 element.muted = false;
                 muteControl.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
             }
         });
-    } else {
-        // If mute status is not set, set it to unmuted
+    }
+    else {
         playElements.forEach(element => {
             element.muted = false;
             muteControl.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
             localStorage.setItem('muted', element.muted);
-        });
+        }
+        )
     }
 }
 
-// Handle mute/unmute control button
 muteControl.addEventListener('click', () => {
     playElements.forEach(element => {
         if (element.muted == false) {
             element.muted = true;
             muteControl.innerHTML = `<i class="fa-solid fa-volume-xmark"></i>`;
             localStorage.setItem('muted', element.muted);
-        } else {
+        }
+        else {
             element.muted = false;
             muteControl.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
             localStorage.setItem('muted', element.muted);
@@ -90,14 +89,12 @@ muteControl.addEventListener('click', () => {
     });
 });
 
-// Handle click audio for interactive elements
 click.forEach((element) => {
     element.addEventListener('click', function () {
         audioClick.play();
     });
 });
 
-// Function to set operator selection and start the game
 function operatorPrompt() {
     operatorSel.forEach((element) => {
         element.setAttribute("disabled", "disabled");
@@ -107,12 +104,10 @@ function operatorPrompt() {
     operatorDiv.classList.toggle('disabled');
 }
 
-// Remove the operator selection div
 function operatorDivRem() {
     document.body.removeChild(operatorDiv);
 }
 
-// Perform actions after the operator is selected
 function operatorChecked() {
     document.body.removeChild(subTitle);
     questionPrompt.classList.toggle('enabled');
@@ -121,7 +116,6 @@ function operatorChecked() {
     num2.innerText = num2Val;
 }
 
-// Generate random numbers and set up the addition operation
 function newNum() {
     num1Val = (Math.floor(Math.random() * 100));
     num2Val = (Math.floor(Math.random() * 100));
@@ -155,7 +149,6 @@ function divOperation() {
     operator.innerText = operatorVal;
 }
 
-// Handle submission of the user's answer
 submitBtn.addEventListener('click', submission);
 userInp.addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
@@ -163,28 +156,26 @@ userInp.addEventListener('keypress', function (event) {
     }
 });
 
-// Function to hide the result message
 function Result() {
     result.classList.remove('enabled');
 }
 
-// Function to handle a correct answer
 function correctAns() {
     num1.innerText = num1Val;
     num2.innerText = num2Val;
     userInp.value = '';
 }
 
-// Function to check the correct answer
 function chkAnswerFunc() {
     userInp.value = answer;
 }
 
-// Handle the submission of the user's answer
 function submission() {
-    if (livesVal > 1) {
+    if(livesVal > 1){
+
         userInpVal = Number.parseInt(userInp.value);
         result.classList.add('enabled');
+    
         if (userInpVal == answer && Number.isInteger(userInpVal) == true) {
             result.classList.remove('warning');
             result.classList.remove('incorrect');
@@ -193,28 +184,94 @@ function submission() {
             scoreVal = scoreVal + 1;
             score.innerText = scoreVal;
             audioScore.play();
-            if (scoreVal > highScoreVal) {
+    
+            if(scoreVal > highScoreVal){
                 highScoreVal = scoreVal;
-                JSON.stringify(localStorage.setItem('highScore', highScoreVal));
+                JSON.stringify(localStorage.setItem('highScore' , highScoreVal));
             }
-            if ((localStorage.getItem('highScore')) != null) {
+            
+            if((localStorage.getItem('highScore')) != null){
                 highScoreVal = Number.parseInt(localStorage.getItem('highScore'));
                 highScore.innerText = highScoreVal;
             }
+    
             userInp.value = '';
             chkAnswer.classList.remove('enabled');
             if (operatorVal == '+') {
                 addOperation();
                 correctAns();
-            } else if (operatorVal == '-') {
+            }
+            else if (operatorVal == '-') {
                 subOperation();
                 correctAns();
-            } else if (operatorVal == '×') {
+            }
+            else if (operatorVal == '×') {
                 mulOperation();
                 correctAns();
-            } else if (operatorVal == '÷') {
+            }
+            else if (operatorVal == '÷') {
                 divOperation();
                 correctAns();
             }
-        } else if ((userInpVal != answer && Number.isInteger(userInpVal) == true)) {
-            result
+        }
+    
+        else if ((userInpVal != answer && Number.isInteger(userInpVal) == true)) {
+            result.classList.remove('warning');
+            result.classList.remove('correct');
+            result.classList.add('incorrect');
+            result.innerHTML = `Your answer was Incorrect! <i class="fa-solid fa-circle-xmark"></i>`;
+            audioHurt.play();
+            
+            if(scoreVal >= 0) {
+                scoreVal = scoreVal - 1;
+            }
+            
+            if(livesVal > 0){
+                livesVal = livesVal - 1;
+                lives.innerText = livesVal;
+            }
+
+            chkAnswer.classList.add('enabled');
+    
+        }
+    
+        else {
+            result.classList.remove('correct');
+            result.classList.remove('incorrect');
+            result.classList.add('warning');
+            result.innerHTML = `Please enter a valid number! <i class="fa-solid fa-circle-exclamation"></i>`;
+            audioWarn.play();
+        }
+    
+        
+        setTimeout(Result, 3000);
+    }
+    
+    else{
+        gameOverFunc();
+    }
+}
+
+// Audio on selection
+
+operatorSel.forEach((element) => {
+    element.addEventListener('click', () => {
+        audioSelect.play();
+    });
+});
+
+// Game Over
+
+function gameOverFunc(){
+    audioHurt.play();
+    gameOverAudio.play();
+    livesVal = 0;
+    lives.innerText = livesVal;
+    if(scoreVal == -1){
+        scoreVal = 0;
+    }
+    finalScore.innerText = scoreVal;
+    questionPrompt.classList.toggle('enabled');
+    gameOverPrompt.classList.toggle('enabled');
+    document.body.removeChild(questionPrompt);
+}'
